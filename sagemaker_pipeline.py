@@ -102,7 +102,7 @@ def create_pipeline(
     # Create pipeline
     pipeline = Pipeline(
         name=pipeline_name,
-        steps=[preprocessing_step, training_step,deploy_step],
+        steps=[preprocessing_step,training_step,deploy_step],
         sagemaker_session=sagemaker_session
     )
     
