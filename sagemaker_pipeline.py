@@ -119,6 +119,7 @@ if __name__ == "__main__":
         role=role,
         preprocessing_script=preprocessing_script,
         training_script=training_script,
+        deploy_script=deploy_script,
         input_data_path=input_data_path
     )
     
