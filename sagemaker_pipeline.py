@@ -50,7 +50,7 @@ def create_pipeline(
             ProcessingOutput(
                 output_name="preprocessed_data",
                 source="/opt/ml/processing/output/",
-                destination=f"s3://{bucket_name}/artifacts/diabetes_classification/"
+                destination=f"s3://{bucket_name}/artifacts/iris_classification/"
             ),
         ],
         code=preprocessing_script
@@ -70,7 +70,7 @@ def create_pipeline(
             ProcessingOutput(
                 output_name="model",
                 source="/opt/ml/processing/output/models/",
-                destination=f"s3://{bucket_name}/artifacts/diabetes_classification/"
+                destination=f"s3://{bucket_name}/artifacts/iris_classification/"
             ),
         ],
         code=training_script,
@@ -92,7 +92,7 @@ def create_pipeline(
             ProcessingOutput(
                 output_name="model",
                 source="/opt/ml/processing/output/models/",
-                destination=f"s3://{bucket_name}/artifacts/diabetes_classification/"
+                destination=f"s3://{bucket_name}/artifacts/iris_classification/"
             ),
         ],
         code=deploy_script,
@@ -115,7 +115,7 @@ if __name__ == "__main__":
     preprocessing_script = "load_data.py"
     training_script = "train.py"
     deploy_script = "deploy.py"
-    input_data_path = "./data/iris.csv"
+    input_data_path = ""
     # Create and start the pipeline
     pipeline = create_pipeline(
         role=role,
