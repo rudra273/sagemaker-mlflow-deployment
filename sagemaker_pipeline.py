@@ -3,6 +3,7 @@ import sagemaker
 from sagemaker.workflow.pipeline import Pipeline
 from sagemaker.workflow.steps import ProcessingStep, TrainingStep
 from sagemaker.processing import ProcessingInput, ProcessingOutput, ScriptProcessor
+from sagemaker.sklearn.processing import SKLearnProcessor
 import yaml
 import os
 from dotenv import load_dotenv
@@ -11,7 +12,6 @@ from sagemaker import get_execution_role
 load_dotenv()
 with open("config.yml", "r") as file:
     config = yaml.safe_load(file)
-
 
 
 def create_pipeline(
@@ -26,20 +26,19 @@ def create_pipeline(
     sagemaker_session = sagemaker.Session()
     
     # Create script processor that will run our Python scripts
-    script_processor = ScriptProcessor(
-        command=['python3'],
-        image_uri='python:3.8',  # Base Python image
-        role=role,
+    # Create a processor for the processing step
+    framework_version = "0.23-1"
+    sklearn_processor = SKLearnProcessor(
+        framework_version=framework_version,
+        instance_type="ml.t3.large",
         instance_count=1,
-        instance_type='ml.m5.large',
-        base_job_name='diabetes-pipeline',
-        sagemaker_session=sagemaker_session
+        base_job_name="prophetcustomprocessjob",
+        role=role,
     )
-
     # Step 1: Preprocessing
     preprocessing_step = ProcessingStep(
         name="PreprocessingStep",
-        processor=script_processor,
+        processor=sklearn_processor,
         inputs=[
             ProcessingInput(
                 source=input_data_path,
@@ -59,7 +58,7 @@ def create_pipeline(
     # Step 2: Training
     training_step = ProcessingStep(
         name="TrainingStep",
-        processor=script_processor,
+        processor=sklearn_processor,
         inputs=[
             ProcessingInput(
                 source=preprocessing_step.properties.ProcessingOutputConfig.Outputs["preprocessed_data"].S3Output.S3Uri,
@@ -81,7 +80,7 @@ def create_pipeline(
     # Step 3: deploy
     deploy_step = ProcessingStep(
         name="DeployStep",
-        processor=script_processor,
+        processor=sklearn_processor,
         inputs=[
             ProcessingInput(
                 source=preprocessing_step.properties.ProcessingOutputConfig.Outputs["preprocessed_data"].S3Output.S3Uri,
