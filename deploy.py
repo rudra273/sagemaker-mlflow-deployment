@@ -26,7 +26,7 @@ import mlflow
 if __name__ == '__main__':
     mlflow.set_tracking_uri(os.getenv("tracking_server_arn"))
     sagemaker_session = sagemaker.Session()
-    role = os.getenv("role_env")
+    role = os.getenv("role_arn")
     client = MlflowClient()
     registered_model = client.get_registered_model(name="sm-job-experiment-model")
     source_path = registered_model.latest_versions[0].source

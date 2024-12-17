@@ -12,6 +12,8 @@ load_dotenv()
 with open("config.yml", "r") as file:
     config = yaml.safe_load(file)
 
+
+
 def create_pipeline(
     role,
     preprocessing_script,
@@ -109,7 +111,7 @@ def create_pipeline(
 if __name__ == "__main__":
     # Define your parameters
     sagemaker_session = sagemaker.Session()
-    role = os.getenv("role_env")
+    role = os.getenv("role_arn")
     preprocessing_script = "load_data.py"
     training_script = "train.py"
     deploy_script = "deploy.py"
