@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 load_dotenv()
 sagemaker_session = sagemaker.Session()
 
-role = os.get_env("role_env")
+role = os.getenv("role_env")
 
 region = sagemaker_session.boto_region_name
 

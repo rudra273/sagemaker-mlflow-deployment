@@ -109,7 +109,7 @@ def create_pipeline(
 if __name__ == "__main__":
     # Define your parameters
     sagemaker_session = sagemaker.Session()
-    role = os.get_env("role_env")
+    role = os.getenv("role_env")
     preprocessing_script = "load_data.py"
     training_script = "train.py"
     deploy_script = "deploy.py"
