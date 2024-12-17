@@ -109,7 +109,7 @@ def create_pipeline(
 if __name__ == "__main__":
     # Define your parameters
     sagemaker_session = sagemaker.Session()
-    role = get_execution_role()
+    role = os.get_env("role_env")
     preprocessing_script = "load_data.py"
     training_script = "train.py"
     deploy_script = "deploy.py"
@@ -128,4 +128,3 @@ if __name__ == "__main__":
     
     print(f"Pipeline execution started with ARN: {execution.arn}")
 
-    

@@ -16,7 +16,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 sagemaker_session = sagemaker.Session()
-role = get_execution_role()
+
+role = os.get_env("role_env")
+
 region = sagemaker_session.boto_region_name
 
 # S3 prefix for the training dataset to be uploaded to

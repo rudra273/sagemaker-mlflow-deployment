@@ -25,6 +25,6 @@ jobs:
           AWS_DEFAULT_REGION: 'us-east-1'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           tracking_server_arn: ${{ secrets.TRACKING_SERVER_ARN }}
-
+          role_arn: ${{ secrets.ROLE_ARN }}
         run: |
            python sagemaker_pipeline.py
