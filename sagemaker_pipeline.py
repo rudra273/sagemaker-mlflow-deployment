@@ -96,7 +96,7 @@ def create_pipeline(
             ),
         ],
         code=deploy_script,
-        depends_on=[preprocessing_step]
+        depends_on=[training_step]
     )
 
     # Create pipeline
