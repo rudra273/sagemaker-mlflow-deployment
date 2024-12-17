@@ -115,7 +115,7 @@ if __name__ == "__main__":
     preprocessing_script = "load_data.py"
     training_script = "train.py"
     deploy_script = "deploy.py"
-    input_data_path = ""
+    input_data_path = "./data/iris.csv"
     # Create and start the pipeline
     pipeline = create_pipeline(
         role=role,
